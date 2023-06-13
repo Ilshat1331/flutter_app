@@ -17,6 +17,7 @@ class MainAppBuilder implements AppBuilder {
     return _GlobalProviders(
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
+        // home: CategoriesScreen(),
         routerConfig: AppRoutes.router,
         theme: AppThemes.light,
       ),
@@ -40,7 +41,7 @@ class _GlobalProviders extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               DishesBloc(NetworkCategoriesRepository(getIt.get<AppApi>()))
-                ..add(DishesEventFetch()),
+                ..add(DishesEvent.fetch()),
         ),
         BlocProvider(
           create: (context) =>
