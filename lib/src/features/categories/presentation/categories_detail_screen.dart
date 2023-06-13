@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/app/presentation/widgets/second_app_bar.dart';
+import 'package:flutter_app/src/features/categories/domain/dishes_bloc/dishes_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_app/src/features/categories/presentation/widgets/dishes_detail.dart';
 import 'package:flutter_app/src/features/categories/presentation/widgets/dishes_item.dart';
 import 'package:flutter_app/src/app/presentation/widgets/app_loader.dart';
-import 'package:flutter_app/src/features/categories/domain/dishes_bloc/dishes_bloc.dart';
+
 import 'package:flutter_app/src/features/categories/domain/entities/dishes_entity/dishes_entity.dart';
 
 class CategoriesDetailScreen extends StatelessWidget {
@@ -23,19 +24,30 @@ class CategoriesDetailScreen extends StatelessWidget {
         child: SecondAppBar(extra: extra),
       ),
       body: BlocBuilder<DishesBloc, DishesState>(
-        builder: (context, state) => state.when(
-          initial: () => const SizedBox(),
-          loading: () => const AppLoader(),
-          loaded: (dishes) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _DishesGrid(dishes: dishes),
-            );
-          },
-          error: (error) => Center(
-            child: Text(error.toString()),
-          ),
-        ),
+        builder: (context, state) {
+          return switch (state) {
+            DishesStateInitial() => const SizedBox(),
+            DishesStateLoading() => const AppLoader(),
+            DishesStateError() => Center(child: Text('${state.error}')),
+            DishesStateLoaded() => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _DishesGrid(dishes: state.dishes),
+              ),
+          };
+        },
+        // builder: (context, state) => state.when(
+        //   initial: () => const SizedBox(),
+        //   loading: () => const AppLoader(),
+        //   loaded: (dishes) {
+        //     return Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        //       child: _DishesGrid(dishes: dishes),
+        //     );
+        //   },
+        //   error: (error) => Center(
+        //     child: Text(error.toString()),
+        //   ),
+        // ),
       ),
     );
   }
