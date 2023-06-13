@@ -18,13 +18,15 @@ class DishesItem extends StatelessWidget {
             width: 110,
             height: 110,
             decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 222, 222, 221),
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: NetworkImage(
+              color: const Color.fromARGB(255, 222, 222, 221),
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: NetworkImage(
                   dishes.imageUrl ??
                       'https://www.hot-motor.ru/body/clothes/images/no_icon.png',
-                ))),
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

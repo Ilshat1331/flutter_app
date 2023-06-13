@@ -14,11 +14,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         fetch: () async {
           emit(const CategoriesState.loading());
           final value = await repository.fetchCategories();
-          // if (data.containsKey('сategories')) {
-          //   categories = List.of(data['сategories'] as List<CategoryEntity>);
-          //   // print(cat[0].name);
-          // }
-          // emit(CategoriesState.loaded(value));
           emit(CategoriesState.loaded(
               value.map((e) => CategoryEntity.fromJson(e)).toList()));
         },
