@@ -41,7 +41,7 @@ class _GlobalProviders extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               DishesBloc(NetworkCategoriesRepository(getIt.get<AppApi>()))
-                ..add(DishesEvent.fetch()),
+                ..add(DishesEventFetch()),
         ),
         BlocProvider(
           create: (context) =>

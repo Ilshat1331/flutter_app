@@ -23,19 +23,17 @@ class CategoriesDetailScreen extends StatelessWidget {
         child: SecondAppBar(extra: extra),
       ),
       body: BlocBuilder<DishesBloc, DishesState>(
-        builder: (context, state) => state.when(
-          initial: () => const SizedBox(),
-          loading: () => const AppLoader(),
-          loaded: (dishes) {
-            return Padding(
+        builder: (context, state) => switch (state) {
+          DishesStateInitial() => const SizedBox(),
+          DishesStateLoading() => AppLoader(),
+          DishesStateError() => Center(
+              child: Text(state.error.toString()),
+            ),
+          DishesStateLoaded() => Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _DishesGrid(dishes: dishes),
-            );
-          },
-          error: (error) => Center(
-            child: Text(error.toString()),
-          ),
-        ),
+              child: _DishesGrid(dishes: state.dishes),
+            )
+        },
       ),
     );
   }
