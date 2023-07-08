@@ -25,7 +25,7 @@ class CategoriesDetailScreen extends StatelessWidget {
       body: BlocBuilder<DishesBloc, DishesState>(
         builder: (context, state) => switch (state) {
           DishesStateInitial() => const SizedBox(),
-          DishesStateLoading() => AppLoader(),
+          DishesStateLoading() => const AppLoader(),
           DishesStateError() => Center(
               child: Text(state.error.toString()),
             ),
